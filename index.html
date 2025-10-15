@@ -17,55 +17,22 @@
             width: 100%;
             height: 100vh;
             border: none;
-           /* overflow: hidden;  Hides iframe scrollbars 
+            overflow: hidden;  Hides iframe scrollbars 
             display: block;
-        }*/
-
-
-.iframe-container {
-  position: relative; /* Essential for positioning the overlay */
-}
-
-.iframe-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: transparent; /* Make it invisible */
-  z-index: 1; /* Ensure it's above the iframe */
-}
-             .non-clickable-iframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
-            pointer-events: none; /* Disables all mouse interactions */
-            position: relative;
-            z-index: 1;
-        } 
+        }
+         
             
     </style>
 </head>
 <body>
-    <!-- <iframe 
+    <iframe 
         src="https://wp.bdevs.net/progery/" 
         class="fullscreen-iframe"
         frameborder="0"
         style="pointer-events: none;"
-    ></iframe> -->
-
-
-<!-- <div class="iframe-container">
-  <iframe src="https://wp.bdevs.net/progery/"></iframe>
-  <div class="iframe-overlay"></div>
-</div> -->
-
-    <iframe 
-        src="https://wp.bdevs.net/progery/" 
-        class="non-clickable-iframe"
         scrolling="yes"
     ></iframe>
- 
+
 </body>
 </html>
 
