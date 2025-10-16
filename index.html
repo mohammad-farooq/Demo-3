@@ -3,62 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-clickable but Scrollable Iframe</title>
+    <title>Simple Scrollable Iframe - No Clicks</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
+            overflow: hidden;
         }
 
-        .scrollable-non-clickable {
+        .iframe-wrapper {
             width: 100%;
             height: 100vh;
+            position: relative;
+        }
+
+        .content-iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            pointer-events: none; /* Disables clicks but also disables scroll */
-            position: relative;
         }
 
-        /* Overlay that allows scroll but blocks clicks */
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-        }
-
-        .scroll-overlay {
+        .scroll-only-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: auto; /* Enables scroll */
+            background: transparent;
             cursor: not-allowed;
-            z-index: 2;
+            z-index: 10;
         }
 
-        .iframe-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+        /* Allow scroll on the overlay */
+        .scroll-only-overlay {
+            pointer-events: none;
+        }
+
+        .scroll-only-overlay:hover {
+            pointer-events: auto;
         }
     </style>
 </head>
 <body>
-    <div class="iframe-container">
+    <div class="iframe-wrapper">
         <iframe 
             src="https://wp.bdevs.net/progery/home-04/" 
-            class="scrollable-non-clickable"
+            class="content-iframe"
             scrolling="yes"
         ></iframe>
-        <div class="scroll-overlay" 
-             onwheel="return true;" 
-             onscroll="return true;"
-             title="Clicks disabled - Scroll enabled">
+        <div class="scroll-only-overlay"
+             onclick="event.stopPropagation(); return false;"
+             onmousedown="event.stopPropagation(); return false;"
+             onmouseup="event.stopPropagation(); return false;">
         </div>
     </div>
+
+    <script>
+        // Allow wheel events to reach the iframe
+        document.querySelector('.scroll-only-overlay').addEventListener('wheel', function(e) {
+            // Don't prevent default - allow scrolling
+            e.stopPropagation();
+        });
+    </script>
 </body>
 </html>
