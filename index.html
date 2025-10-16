@@ -3,46 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-clickable Iframe with Scroll</title>
+    <title>Interactive Content with Non-clickable Iframe</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            overflow-y: auto; /* Enable page scrolling */
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
         }
 
-        .scroll-content {
-            height: 2000px; /* Tall content to enable scrolling */
+        .page-content {
+            height: 2000px;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .interactive-element {
+            background: white;
             padding: 20px;
-            background: #f9f9f9;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .non-clickable-iframe {
             width: 100%;
             height: 100vh;
             border: none;
-            pointer-events: none; /* Disables all mouse interactions */
-            position: fixed; /* Stays in place while scrolling */
+            pointer-events: none;
+            position: fixed;
             top: 0;
             left: 0;
-            z-index: 9999;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
-    <!-- Your page content that should be scrollable -->
-    <div class="scroll-content">
-        <h1>Your Scrollable Page</h1>
-        <p>This content is scrollable using mouse wheel or scrollbar...</p>
-        <p>Keep scrolling down...</p>
-        <div style="height: 1000px; background: linear-gradient(#e66465, #9198e5);">
-            <!-- Long content for scrolling -->
+    <div class="page-content">
+        <h1>Scrollable Page with Interactive Elements</h1>
+        
+        <div class="interactive-element">
+            <button onclick="alert('Button clicked!')">Clickable Button</button>
+            <input type="text" placeholder="Clickable input field">
+            <a href="#link" style="color: blue;">Clickable Link</a>
         </div>
-        <p>More content at the bottom...</p>
+
+        <p>Scroll down to see more content...</p>
+        
+        <div style="height: 800px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); display: flex; align-items: center; justify-content: center; color: white;">
+            <h2>Scrollable Area</h2>
+        </div>
+
+        <div class="interactive-element">
+            <p>More interactive elements at the bottom...</p>
+            <select>
+                <option>Select option</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+            </select>
+        </div>
     </div>
 
-    <!-- Non-clickable iframe overlay -->
     <iframe 
         src="https://example.com" 
         class="non-clickable-iframe"
