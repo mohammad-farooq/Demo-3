@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrollable Iframe - No Clicks</title>
+    <title>Non-clickable but Scrollable Iframe</title>
     <style>
         body {
             margin: 0;
@@ -11,74 +11,54 @@
             height: 100vh;
         }
 
-        .smart-iframe {
+        .scrollable-non-clickable {
             width: 100%;
             height: 100vh;
             border: none;
-            display: block;
+            pointer-events: none; /* Disables clicks but also disables scroll */
+            position: relative;
         }
 
-        .click-blocker {
-            position: fixed;
+        /* Overlay that allows scroll but blocks clicks */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .scroll-overlay {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
-            z-index: 1000;
+            pointer-events: auto; /* Enables scroll */
             cursor: not-allowed;
+            z-index: 2;
+        }
+
+        .iframe-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <iframe 
-        src="https://wp.bdevs.net/progery/home-04/" 
-        class="smart-iframe"
-        id="myIframe"
-        scrolling="yes"
-    ></iframe>
-
-    <div class="click-blocker" id="clickBlocker"></div>
-
-    <script>
-        const clickBlocker = document.getElementById('clickBlocker');
-        const iframe = document.getElementById('myIframe');
-
-        // Allow scroll events to pass through
-        clickBlocker.addEventListener('wheel', function(e) {
-            // Find the iframe element under the blocker
-            const iframeRect = iframe.getBoundingClientRect();
-            if (e.clientX >= iframeRect.left && e.clientX <= iframeRect.right &&
-                e.clientY >= iframeRect.top && e.clientY <= iframeRect.bottom) {
-                
-                // Create a new wheel event for the iframe
-                const wheelEvent = new WheelEvent('wheel', {
-                    deltaX: e.deltaX,
-                    deltaY: e.deltaY,
-                    deltaZ: e.deltaZ,
-                    deltaMode: e.deltaMode,
-                    clientX: e.clientX,
-                    clientY: e.clientY,
-                    bubbles: true
-                });
-                
-                iframe.dispatchEvent(wheelEvent);
-            }
-        });
-
-        // Block all click events
-        clickBlocker.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
-        // Block other mouse events
-        ['mousedown', 'mouseup', 'dblclick', 'contextmenu'].forEach(eventType => {
-            clickBlocker.addEventListener(eventType, function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            });
-        });
-    </script>
+    <div class="iframe-container">
+        <iframe 
+            src="https://wp.bdevs.net/progery/home-04/" 
+            class="scrollable-non-clickable"
+            scrolling="yes"
+        ></iframe>
+        <div class="scroll-overlay" 
+             onwheel="return true;" 
+             onscroll="return true;"
+             title="Clicks disabled - Scroll enabled">
+        </div>
+    </div>
 </body>
 </html>
