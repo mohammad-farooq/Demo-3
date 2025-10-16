@@ -16,12 +16,14 @@
             width: 100%;
             height: 100vh;
             position: relative;
+            pointer-events: none;
         }
 
         .content-iframe {
             width: 100%;
             height: 100%;
             border: none;
+            pointer-events: none;
         }
 
         .scroll-only-overlay {
@@ -51,6 +53,7 @@
             src="https://wp.bdevs.net/progery/home-04/" 
             class="content-iframe"
             scrolling="yes"
+            
         ></iframe>
         <div class="scroll-only-overlay"
              onclick="event.stopPropagation(); return false;"
