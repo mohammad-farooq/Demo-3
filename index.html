@@ -3,36 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammad-farooq | Demo | Cosmetic Surgery</title>
+    <title>Non-clickable Iframe with Scroll</title>
     <style>
-        /* Remove all scrollbars from page */
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* This removes page scrollbars */
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            overflow-y: auto; /* Enable page scrolling */
         }
-        .fullscreen-iframe {
+
+        .scroll-content {
+            height: 2000px; /* Tall content to enable scrolling */
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .non-clickable-iframe {
             width: 100%;
             height: 100vh;
             border: none;
-            overflow: hidden; /* Hides iframe scrollbars */
-            display: block;
+            pointer-events: none; /* Disables all mouse interactions */
+            position: fixed; /* Stays in place while scrolling */
+            top: 0;
+            left: 0;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
+    <!-- Your page content that should be scrollable -->
+    <div class="scroll-content">
+        <h1>Your Scrollable Page</h1>
+        <p>This content is scrollable using mouse wheel or scrollbar...</p>
+        <p>Keep scrolling down...</p>
+        <div style="height: 1000px; background: linear-gradient(#e66465, #9198e5);">
+            <!-- Long content for scrolling -->
+        </div>
+        <p>More content at the bottom...</p>
+    </div>
+
+    <!-- Non-clickable iframe overlay -->
     <iframe 
-        src="https://wp.bdevs.net/progery/" 
-        class="fullscreen-iframe"
-        
-        frameborder="0"
+        src="https://example.com" 
+        class="non-clickable-iframe"
+        scrolling="no"
     ></iframe>
 </body>
 </html>
-
-        
-   
-
-        
